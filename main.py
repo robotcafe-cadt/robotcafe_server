@@ -3,7 +3,7 @@
 import Kinematic as kin
 import time
 import threading
-
+# testing
 if __name__ == '__main__':
     # thread = threading.Thread(target=com.read_from_port, args=(com.ser,))
     # thread.start()
