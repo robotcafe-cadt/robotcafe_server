@@ -1,5 +1,6 @@
 import time
 import rs_485 as com
+from bitstring import BitArray
 
 def int_byte(int_data):
     return (int_data & 0xff)
@@ -16,15 +17,19 @@ def ratio(mid,ang,velo):
         velo *= 18.0
     else:
         ang *= -1.0
-    return int(ang*100.0),int(velo*100.0)
+    return int(ang*100),int(velo*100)
 
 def trans(data):
     #for i in data:
         #print(hex(i))
     com.ser.flushOutput()
     com.ser.write(data)
-    time.sleep(0.001)
-
+    while (True):
+        # print("wait")
+        if(len(com.rx) > 0):
+            if((com.rx[0] == data[0]) and (com.rx[1] == data[1]) and (com.rx[2] == data[2])):
+                break
+    time.sleep(0.01)
 def reset_error(mid):
     m_data =[]
     m_data.append(0x3e)
@@ -65,7 +70,7 @@ def runMulti_Angle_speed(mid,ang,velo):
     chsum = 0
     degree,speed = ratio(mid,ang,velo)
     if(speed == 0):
-        speed = 1.0
+        speed = 1
     m_data = []
     m_data.append(0x3e)
     m_data.append(0xa4)
@@ -90,12 +95,12 @@ def readAngle(mid):
     m_data.append(0x00)
     m_data.append(int_byte(m_data[0] + m_data[1] + m_data[2] + m_data[3]))
     trans(m_data)
-    while (len(com.rx) == 0):
-        print('wait')
     if((com.rx[0] == 0x3e) and (com.rx[1] == 0x92) and (com.rx[2] == mid)):
         for i in range(5,13):
             _result |= com.rx[i] << (8*(i-5))
-    result = _result / 100.0
+    s = "{:016b}".format(_result & 0xffffffff)
+    _resulttemp = BitArray(bin=s).int
+    result = _resulttemp / 100.0
     if(mid == 2):
         result /= 8.0
     elif(mid == 3):
@@ -116,8 +121,6 @@ def readSpeed(mid):
     m_data.append(0x00)
     m_data.append(int_byte(m_data[0] + m_data[1] + m_data[2] + m_data[3]))
     trans(m_data)
-    while (len(com.rx) == 0):
-        print('wait')
     if((com.rx[0] == 0x3e) and (com.rx[1] == 0x9c) and (com.rx[2] == mid)):
         result = (com.rx[9] << 8) | (com.rx[8])
         if(mid == 2):

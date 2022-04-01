@@ -2,7 +2,7 @@ import serial
 
 # Open serial port
 ser = serial.Serial()
-ser.port = 'COM5'
+ser.port = 'COM5' #Port 485 for motor
 ser.baudrate = 115200
 ser.timeout = 0.01
 ser.setDTR(False)
@@ -15,3 +15,5 @@ def read_from_port(ss):
             global  rx
             rx = ss.read(100)
             ss.flushInput()
+            # print(*rx)
+            # rx = bytes(0)

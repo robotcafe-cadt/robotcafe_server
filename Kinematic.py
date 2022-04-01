@@ -14,7 +14,7 @@ a4 = 117.8
 
 theta0= theta1= theta2= theta3= theta4=theta5= theta6= lamda= phi= 0.0
 cas = 0
-dpr = 10.0/360.0 #Motor1 distance of arm move per revolution
+dpr = 2.0/360.0 #Motor1 distance of arm move per revolution
 
 def Inv_K(_X,_Y,_Z,d1,_alpha,_belta,_gama):
     global theta0, theta1, theta2, theta3, theta4, theta5, theta6, lamda, phi, pdr
