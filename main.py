@@ -8,17 +8,19 @@ import tkinter as tk
 
 
 def runIncMp():
-    motor.runInc_speed(2,1,90)
+    motor.runInc_speed(1,1,90)
 def runIncMm():
-    motor.runInc_speed(2,-1,90)
+    motor.runInc_speed(1,-1,90)
 def mainprog():
     # motor.runInc_speed(3, 1, 90)
     # kin.Inv_K(0.0,-(kin.a3+kin.a4),(kin.a1+kin.a2),0.0,0.0,0.0,0.0)
     # time.sleep(2)
     # print(f"angle={motor.readAngle(3)}")
 
-    # for i in range(1,8):
-    #     motor.runInc_speed(i, 0.1, 90)
+    for i in range(1,8):
+        motor.reset_error(i)
+    for i in range(1,8):
+        motor.runInc_speed(i, 0.1, 90)
     # for i in range(1,8):
     #     motor.runMulti_Angle_speed(i, 0, 90)
 
@@ -44,9 +46,9 @@ if __name__ == '__main__':
     win = tk.Tk()
     win.geometry("340x128")
     btn1 = tk.Button(win, text="UP", command=runIncMp)
-    btn1.place(x=0,y=0)
+    btn1.place(x=5,y=0,width=100)
     btn2 = tk.Button(win, text="DOWN", command=runIncMm)
-    btn2.pack()
+    btn2.place(x=5,y=30)
 
     win.mainloop()
 

@@ -20,8 +20,8 @@ def ratio(mid,ang,velo):
     return int(ang*100),int(velo*100)
 
 def trans(data):
-    #for i in data:
-        #print(hex(i))
+    # for i in data:
+    #     print(hex(i))
     com.ser.flushOutput()
     com.ser.write(data)
     while (True):
