@@ -8,9 +8,10 @@ import tkinter as tk
 
 
 def runIncMp():
-    motor.runInc_speed(1,1,90)
+    motor.runInc_speed(3,1,90)
 def runIncMm():
-    motor.runInc_speed(1,-1,90)
+    motor.runInc_speed(3,-1,90)
+
 def mainprog():
     # motor.runInc_speed(3, 1, 90)
     # kin.Inv_K(0.0,-(kin.a3+kin.a4),(kin.a1+kin.a2),0.0,0.0,0.0,0.0)
@@ -48,7 +49,7 @@ if __name__ == '__main__':
     btn1 = tk.Button(win, text="UP", command=runIncMp)
     btn1.place(x=5,y=0,width=100)
     btn2 = tk.Button(win, text="DOWN", command=runIncMm)
-    btn2.place(x=5,y=30)
+    btn2.place(x=5,y=30,width=100)
 
     win.mainloop()
 
