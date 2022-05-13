@@ -31,6 +31,7 @@ def Inv_K(_X,_Y,_Z,d1,_alpha,_belta,_gama):
         B = Z - a1
         C = ((a3**2) - (A**2) - (B**2) - (a2**2)) / (2 * a2)
         phi = math.atan2(B , A)
+        # phi = math.atan(B/A)
         R = math.sqrt((A**2) + (B**2))
         theta2 = math.asin(C / R) + phi
         lamda = math.atan2((B - (a2 * math.cos(theta2))), (A + (a2 * math.sin(theta2))))
@@ -170,7 +171,7 @@ def check_Rotation(MatrixCheck, MatrixResult):
             result = False
             cas += 1
         else :
-            print(f"no solution case {cas}")
+            print(f"solution case {cas}")
             result = True
     else :
         result = False
